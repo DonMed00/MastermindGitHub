@@ -4,13 +4,31 @@ import static mastermind.Colores.*;
 import static mastermind.Teclado.*;
 import java.util.ArrayList;
 
+/**
+ * Esta clase es hija de Jugador
+ *
+ * @author Adrian Mena
+ * @version 2.0
+ * @since 1.0
+ *
+ */
 public class Usuario extends Jugador {
-
-	Usuario(Modos modo) {
+	/**
+	 * Construye un nuevo objeto Usuario
+	 * 
+	 * @param modo
+	 *            El modo a partir del cual se asigna a las combinaciones.
+	 */
+	public Usuario(Modos modo) {
 		super(modo);
 		nombre = "Humano";
 	}
 
+	/**
+	 * Devuelve la combinación secreta del Usuario ya rellenada.
+	 * 
+	 * @return Combinación Secreta
+	 */
 	public Combinacion rellenarCombiSecret() {
 		int i;
 		Ficha ficha;
@@ -21,7 +39,8 @@ public class Usuario extends Jugador {
 		for (i = 0; i < combinacionSecreta.getCasillas().length; i++) {
 			do {
 				do {
-					mostrarMenuColores(i);
+					System.out.printf("Elige el color para la casilla %d:\n", i + 1);
+					mostrarMenuColores();
 					ficha = new Ficha();
 					ficha = elegirCombi(1);
 					combinacionSecreta.getCasillas()[i] = ficha;
@@ -42,7 +61,14 @@ public class Usuario extends Jugador {
 		return combinacionSecreta;
 	}
 
-	public Combinacion rellenarCombinacionAcertar() {
+	/**
+	 * Devuelve la combinación Acertar del Jugador ya rellenada.
+	 * 
+	 * @param tablero
+	 *            Recibe el tablero de la partida que se está jugadno
+	 * @return Combinación a Acertar.
+	 */
+	public Combinacion rellenarCombinacionAcertar(TableroJugador tablero) {
 		int i;
 		Ficha ficha;
 		boolean confirmacion;
@@ -51,7 +77,8 @@ public class Usuario extends Jugador {
 		System.out.println("Es hora de intentar acertar\nla combinación del oponente");
 		for (i = 0; i < combiAux.getCasillas().length; i++) {
 			do {
-				mostrarMenuColores(i);
+				System.out.printf("Elige el color para la casilla %d:\n", i + 1);
+				mostrarMenuColores();
 				ficha = new Ficha();
 				ficha = elegirCombi(1);
 				combiAux.getCasillas()[i] = ficha;
@@ -63,6 +90,15 @@ public class Usuario extends Jugador {
 		return acertarCombinacion;
 	}
 
+	/**
+	 * Devuelve una pista de aciertos y errores al rival
+	 * 
+	 * @param combiComprobar
+	 *            Combinacion a comprobar (la secreta propia).
+	 * @param combiRival
+	 *            Combinación del rival a comparar con la nuestra.
+	 * @return Pista de errores y aciertos de la jugada.
+	 */
 	public Combinacion darAciertosRival(Combinacion combiComprobar, Combinacion combiRival) {
 		int aciertoTotal;
 		int soloColor;
@@ -74,14 +110,14 @@ public class Usuario extends Jugador {
 		System.out.println("Este es el intento del rival: ");
 		System.out.println(combiRival.dibujar());
 		do {
-			i=0;
+			i = 0;
 			lista = new ArrayList<>();
 			aciertoError = new Combinacion(getModo());
 			System.out.println("Escribe cuantos colores en su posicion\n ha acertado el oponente");
 			aciertoTotal = Teclado.leerNumEntre(Incluido.INCLUIDOS, 0, getModo().getNumCasillas());
 			while (i < aciertoTotal) {
 				ficha = new Ficha();
-				ficha.addColor(NEGRO + (char) 9210 + RESET);
+				ficha.setColor(NEGRO + (char) 9210 + RESET);
 				lista.add(ficha);
 				i++;
 			}
@@ -91,7 +127,7 @@ public class Usuario extends Jugador {
 				soloColor = Teclado.leerNumEntre(Incluido.INCLUIDOS, 0, getModo().getNumCasillas() - aciertoTotal);
 				while (i < soloColor) {
 					ficha = new Ficha();
-					ficha.addColor(ROJO + (char) 9210 + RESET);
+					ficha.setColor(ROJO + (char) 9210 + RESET);
 					lista.add(ficha);
 					i++;
 				}
@@ -100,7 +136,7 @@ public class Usuario extends Jugador {
 			for (i = 0; i < aciertoError.getCasillas().length; i++) {
 				if (aciertoError.getCasillas()[i] == null) {
 					ficha = new Ficha();
-					ficha.addColor(BLANCO + (char) 9210 + RESET);
+					ficha.setColor(BLANCO + (char) 9210 + RESET);
 					aciertoError.getCasillas()[i] = ficha;
 				}
 			}
@@ -117,8 +153,12 @@ public class Usuario extends Jugador {
 		return aciertoError;
 	}
 
-	public void mostrarMenuColores(int i) {
-		System.out.printf("Elige el color para la casilla %d:\n", i + 1);
+	/**
+	 * Muestra un menú de colores a la hora de elegir los colores de las
+	 * combinaciones.
+	 */
+	public void mostrarMenuColores() {
+
 		System.out.printf("1.");
 		System.out.printf(CELESTE + (char) 9209 + RESET);
 		System.out.printf("\t5.");

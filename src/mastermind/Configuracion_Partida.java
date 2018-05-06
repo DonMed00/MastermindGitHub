@@ -1,12 +1,24 @@
 package mastermind;
 
 import static mastermind.Teclado.*;
-
+/**
+ * Esta clase contiene el modo de la partida que se iniciará en sus metodos
+ * 
+ * @author Adrian Mena
+ * @version 2.0
+ * @since 1.9
+ *
+ */
 public class Configuracion_Partida {
 	Modos modo;
 
 	public Configuracion_Partida() {
 	}
+	/**
+	 * Da opción al admin a elegir el modo de juego que seguirá la partida
+	 * 
+	 * @return Modo de juego de la partida.
+	 */
 	public Modos elegirModo() {
 		int numModo;
 		Modos modo = null;
@@ -29,6 +41,10 @@ public class Configuracion_Partida {
 		}
 		return modo;
 	}
+	/**
+	 * Comprueba el modo de juego, llamando a la función anterior. E inicializa una partida con sus distintas características.
+	 * .
+	 */
 	public void hacerPartida(){
 		boolean jugar = false;
 		do {
@@ -44,18 +60,12 @@ public class Configuracion_Partida {
 		}while(jugar);
 		System.out.println("Hasta la próxima");
 	}
+	/**
+	 * Se crea un objeto de la clase y se llama al método hacerPartida() para conmenzar el juego.
+	 */
 	public static void main(String[] args){
 		Configuracion_Partida partida=new Configuracion_Partida();
 		partida.hacerPartida();
-//		TreeMap<String,Integer> mapa=new TreeMap<>();
-//		mapa.put("C", 1);
-//		mapa.put("C", 2);
-//		mapa.put("C", 3);
-//		mapa.put("A", 1);
-//		mapa.put("D", 2);
-//		for (Object l : mapa.values()) {// No se ordena alfabeticamente en mi eclipse(Posible error).
-//			System.out.println(l);
-//		}
 	}
 	
 }

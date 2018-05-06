@@ -1,4 +1,12 @@
 package mastermind;
+/**
+ * Esta clase almacena de manera static los colores que se usaran en la aplicacion.
+ * 
+ * @author Adrian Mena
+ * @version 2.0
+ * @since 1.0
+ *
+ */
 
 public class Colores {
 	public static final String RESET = "\u001B[0m";

@@ -1,5 +1,12 @@
 package mastermind;
-
+/**
+ * Esta clase contiene los distintos modos de juego y sus atributos.
+ * 
+ * @author Eva Peralta
+ * @version 2.0
+ * @since 2.0
+ *
+ */
 public enum Modos {
 	Facil('F', 4, 8, false, 10), Medio('M', 5, 8, false, 15), Dificil('D', 8, 10, true, -1);
 	private char codigo;
@@ -7,7 +14,9 @@ public enum Modos {
 	private int numColores;
 	private boolean color_Repetido;
 	private int intentos;
-
+	/**
+	 * Construye un nuevo objeto Modo con unos atributos ya definidos.
+	 */
 	Modos(char codigo, int numCasillas, int numColores, boolean color_Repetido, int intentos) {
 		this.codigo = codigo;
 		this.numCasillas = numCasillas;

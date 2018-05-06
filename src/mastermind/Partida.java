@@ -7,6 +7,15 @@ import static mastermind.Colores.ROJO;
 //Controlar darAciertos por la maquina
 import mastermind.Teclado.Incluido;
 
+/**
+ * Esta clase contiene los jugadores, tableros y el modo que realizaran el tipo
+ * de Partida
+ * 
+ * @author Adrian Mena
+ * @version 2.0
+ * @since 1.0
+ *
+ */
 public class Partida {
 	private Jugador jugador1;
 	private Jugador jugador2;
@@ -14,6 +23,20 @@ public class Partida {
 	private TableroJugador tableroJ2;
 	private Modos modo;
 
+	/**
+	 * Construye un nuevo objeto Partida a partir de los parametros indicados.
+	 * 
+	 * @param jugador1
+	 *            Jugador que participará en la partida.
+	 * @param jugador2
+	 *            Jugador que participará en la partida.
+	 * @param tablero1
+	 *            Tablero que participará en la partida.
+	 * @param tablero2
+	 *            Tablero que participará en la partida.
+	 * @param modo
+	 *            Modo que dará características a la partida.
+	 */
 	Partida(Jugador jugador1, Jugador jugador2, TableroJugador tablero1, TableroJugador tablero2, Modos modo) {
 		this.jugador1 = jugador1;
 		this.jugador2 = jugador2;
@@ -22,6 +45,10 @@ public class Partida {
 		this.modo = modo;
 	}
 
+	/**
+	 * Realiza una llamada a la partida deseada según el modo de juego del objeto
+	 * Partida.
+	 */
 	public void llamarPartida() {
 		if (modo.getCodigo() == 'F') {
 			partidaFacil();
@@ -32,6 +59,10 @@ public class Partida {
 		}
 	}
 
+	/**
+	 * Realiza una partida del modo Fácil
+	 * 
+	 */
 	public void partidaFacil() {
 		boolean salir = false;
 		int eligeJugador;
@@ -48,11 +79,10 @@ public class Partida {
 			jugador2.rellenarCombiSecret();
 			do {
 				jugada = new Jugada(modo);
-				jugada.addJugada(jugador1.rellenarCombinacionAcertar(),
+				jugada.addJugada(jugador1.rellenarCombinacionAcertar(tableroJ2),
 						jugador2.darAciertosRival(jugador2.getCombinacionSecreta(), jugador1.getAcertarCombinacion()));
 				tableroJ1.getTablero().add(jugada);
-				System.out.printf("Tablero de %s    Intento: %d de %d\n", jugador1.getNombre(), i + 1,
-						modo.getIntentos());
+				System.out.printf("Tablero de %s Intento: %d de %d\n", jugador1.getNombre(), i + 1, modo.getIntentos());
 				System.out.println(tableroJ1.dibujar());
 				i++;
 				if (i == modo.getIntentos()
@@ -70,12 +100,11 @@ public class Partida {
 			jugador1.rellenarCombiSecret();
 			do {
 				jugada = new Jugada(modo);
-				jugada.addJugada(jugador2.rellenarCombinacionAcertar(), jugador1.darAciertosRival(
+				jugada.addJugada(jugador2.rellenarCombinacionAcertar(tableroJ2), jugador1.darAciertosRival(
 						jugador2.darAciertosRival(jugador1.getCombinacionSecreta(), jugador2.acertarCombinacion),
 						jugador2.getAcertarCombinacion()));
 				tableroJ2.getTablero().add(jugada);
-				System.out.printf("Tablero de %s    Intento: %d de %d\n", jugador2.getNombre(), i + 1,
-						modo.getIntentos());
+				System.out.printf("Tablero de %s Intento: %d de %d\n", jugador2.getNombre(), i + 1, modo.getIntentos());
 				System.out.println(tableroJ2.dibujar());
 				i++;
 				if (i == modo.getIntentos()
@@ -92,6 +121,10 @@ public class Partida {
 		}
 	}
 
+	/**
+	 * Realiza una partida del modo Medio
+	 * 
+	 */
 	public void partidaMedia() {
 		int i = 0;
 		boolean salir = false;
@@ -110,16 +143,16 @@ public class Partida {
 		do {
 			jugadaJ1 = new Jugada(modo);
 			jugadaJ2 = new Jugada(modo);
-			jugadaJ1.addJugada(jugador1.rellenarCombinacionAcertar(),
+			jugadaJ1.addJugada(jugador1.rellenarCombinacionAcertar(tableroJ1),
 					jugador2.darAciertosRival(jugador2.getCombinacionSecreta(), jugador1.getAcertarCombinacion()));
 			tableroJ1.getTablero().add(jugadaJ1);
-			jugadaJ2.addJugada(jugador2.rellenarCombinacionAcertar(),
+			jugadaJ2.addJugada(jugador2.rellenarCombinacionAcertar(tableroJ2),
 					jugador1.darAciertosRival(
 							jugador2.darAciertosRival(jugador1.getCombinacionSecreta(), jugador2.acertarCombinacion),
 							jugador2.getAcertarCombinacion()));
 			tableroJ2.getTablero().add(jugadaJ2);
 			tableroPartida.addTableros(tableroJ1, tableroJ2);
-			System.out.printf("    Tablero de %-20sTablero de %-12sIntento: %d de %d\n\n", jugador1.getNombre(),
+			System.out.printf(" Tablero de %-20sTablero de %-12sIntento: %d de %d\n\n", jugador1.getNombre(),
 					jugador2.getNombre(), i + 1, modo.getIntentos());
 			System.out.printf("%s", tableroPartida.dibujar());
 			i++;
@@ -150,6 +183,10 @@ public class Partida {
 		}
 	}
 
+	/**
+	 * Realiza una partida del modo Dificil
+	 * 
+	 */
 	public void partidaDificil() {
 		int i = 0;
 		boolean salir = false;
@@ -164,31 +201,35 @@ public class Partida {
 		System.out.println(jugador1.rellenarCombiSecret().dibujar());
 		System.out.println(jugador2.rellenarCombiSecret().dibujar());
 		do {
+
 			jugadaJ1 = new Jugada(modo);
 			jugadaJ2 = new Jugada(modo);
-			jugadaJ1.addJugada(jugador1.rellenarCombinacionAcertar(),
+			jugadaJ1.addJugada(jugador1.rellenarCombinacionAcertar(tableroJ1),
 					jugador2.darAciertosRival(jugador2.getCombinacionSecreta(), jugador1.getAcertarCombinacion()));
 			tableroJ1.getTablero().add(jugadaJ1);
 
-			jugadaJ2.addJugada(jugador2.rellenarCombinacionAcertar(),
+			jugadaJ2.addJugada(jugador2.rellenarCombinacionAcertar(tableroJ2),
 					jugador1.darAciertosRival(jugador1.getCombinacionSecreta(), jugador2.getAcertarCombinacion()));
 
 			tableroJ2.getTablero().add(jugadaJ2);
 			tableroPartida.addTableros(tableroJ1, tableroJ2);
 			System.out.printf("\tTablero de %-29sTablero de %s\t\tIntento: %d\n\n", jugador1.getNombre(),
 					jugador2.getNombre(), i + 1);
+
 			System.out.printf("%s", tableroPartida.dibujar());
-			i++;
+			
+			
 			if (jugador1.getAcertarCombinacion().equals(jugador2.getCombinacionSecreta())
 					|| jugador2.getAcertarCombinacion().equals(jugador1.getCombinacionSecreta())) {
 
 				salir = true;
 			}
-			 try {
-			 Thread.sleep(5000);
-			 } catch (InterruptedException e) {
-			 e.printStackTrace();
-			 }
+			try {
+				Thread.sleep(4000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			i++;
 		} while (!salir);
 		if (jugador1.getAcertarCombinacion().equals(jugador2.getCombinacionSecreta())
 				&& jugador2.getAcertarCombinacion().equals(jugador1.getCombinacionSecreta())) {
@@ -200,6 +241,17 @@ public class Partida {
 		}
 	}
 
+	/**
+	 * Devuelve el ganador en caso de empate en el modo Medio
+	 * 
+	 * @param c1
+	 *            Combinacion a comprobar
+	 * @param num
+	 *            Numero que indica si se esta comprobando el aciertoTotal o solo de
+	 *            Color.
+	 * @return Devuelve el número de aciertos realizados segun sea rojo o negro.
+	 * 
+	 */
 	public int devolverGanador(Combinacion c1, int num) {
 		// Este metodo, devuelve el número de veces que la combinacion contiene la ficha
 		// indicada por parametro
@@ -208,10 +260,10 @@ public class Partida {
 		Ficha ficha = new Ficha();
 		switch (num) {
 		case 1:
-			ficha.addColor(NEGRO + (char) 9210 + RESET);
+			ficha.setColor(NEGRO + (char) 9210 + RESET);
 			break;
 		case 2:
-			ficha.addColor(ROJO + (char) 9210 + RESET);
+			ficha.setColor(ROJO + (char) 9210 + RESET);
 			break;
 		}
 		for (i = 0; i < c1.getCasillas().length; i++) {
