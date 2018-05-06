@@ -2,9 +2,9 @@ package mastermind;
 /**
  * Esta clase contiene los distintos modos de juego y sus atributos.
  * 
- * @author Eva Peralta
+ * @author Adrian Mena
  * @version 2.0
- * @since 2.0
+ * @since 1.0
  *
  */
 public enum Modos {
