@@ -21,7 +21,7 @@ public class Usuario extends Jugador {
 	 */
 	public Usuario(Modos modo) {
 		super(modo);
-		
+		System.out.println("Hola");
 		nombre = "Humano";
 	}
 
