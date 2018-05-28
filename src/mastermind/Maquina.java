@@ -252,8 +252,13 @@ public class Maquina extends Jugador {
 				}
 			}
 		}
+		if (colorPosicion.size() == modo.getNumCasillas()) {
+			combinacion = new Combinacion(modo);
+			combinacion.setCasillas(colorPosicion.toArray(combinacion.getCasillas()));
+		}
 		setAcertarCombinacion(combinacion);
 		return acertarCombinacion;
 	}
 
+	
 }
