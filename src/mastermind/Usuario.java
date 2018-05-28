@@ -21,7 +21,6 @@ public class Usuario extends Jugador {
 	 */
 	public Usuario(Modos modo) {
 		super(modo);
-		System.out.println("Hola");
 		nombre = "Humano";
 	}
 
@@ -38,7 +37,7 @@ public class Usuario extends Jugador {
 		boolean contieneColor = false;
 		ArrayList<Ficha> mapa = new ArrayList<>();
 		for (i = 0; i < combinacionSecreta.getCasillas().length; i++) {
-//			do {
+			do {
 				do {
 					System.out.printf("Elige el color para la casilla %d:\n", i + 1);
 					mostrarMenuColores();
@@ -56,8 +55,8 @@ public class Usuario extends Jugador {
 					}
 				} while (contieneColor);
 				contieneColor = false;
-//				confirmacion = Teclado.leerBoolean("¿Estás conforme con el color?", "Si", "No");
-//			} while (!confirmacion);
+				confirmacion = Teclado.leerBoolean("¿Estás conforme con el color?", "Si", "No");
+			} while (!confirmacion);
 		}
 		return combinacionSecreta;
 	}
@@ -77,15 +76,15 @@ public class Usuario extends Jugador {
 
 		System.out.println("Es hora de intentar acertar\nla combinación del oponente");
 		for (i = 0; i < combiAux.getCasillas().length; i++) {
-//			do {
+			do {
 				System.out.printf("Elige el color para la casilla %d:\n", i + 1);
 				mostrarMenuColores();
 				ficha = new Ficha();
 				ficha = elegirCombi(1);
 				combiAux.getCasillas()[i] = ficha;
 				System.out.printf("Color %s en posicion %d", ficha.getColor(), i + 1);
-//				confirmacion = Teclado.leerBoolean("¿Estás conforme con el color?", "Si", "No");
-//			} while (!confirmacion);
+				confirmacion = Teclado.leerBoolean("¿Estás conforme con el color?", "Si", "No");
+			} while (!confirmacion);
 		}
 		setAcertarCombinacion(combiAux);
 		return acertarCombinacion;
