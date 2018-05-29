@@ -3,15 +3,21 @@ package mastermind;
 import static mastermind.Colores.*;
 
 public class Adrian extends Participante {
-	TableroJugador tablero = new TableroJugador();
-	Modos modo = Modos.Dificil;
-	Maquina maquina = new Maquina(modo);
+	private TableroJugador tablero;
+	private Modos modo;
+	private Maquina maquina;
+
+	public Adrian() {
+		tablero = new TableroJugador();
+		modo = Modos.Dificil;
+		maquina = new Maquina(modo);
+	}
 
 	@Override
 	public byte[] crearCombPropuesta() {
 		int i;
 		Jugada jugada = new Jugada(modo);
-		byte[] combinacion = new byte[8];
+		byte[] combinacion = new byte[modo.getNumCasillas()];
 
 		jugada.addJugada(maquina.rellenarCombinacionAcertar(tablero), traducirByteString(resultado));
 		tablero.getTablero().add(jugada);
@@ -26,7 +32,7 @@ public class Adrian extends Participante {
 	@Override
 	public byte[] crearCombSecreta() {
 		int i;
-		byte[] combinacion = new byte[8];
+		byte[] combinacion = new byte[modo.getNumCasillas()];
 		maquina.rellenarCombiSecret();
 		for (i = 0; i < modo.getNumCasillas(); i++) {
 			combinacion[i] = traducirStringByte(maquina.combinacionSecreta.getCasillas()[i].getColor());
